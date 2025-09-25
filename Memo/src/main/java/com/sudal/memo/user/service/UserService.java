@@ -1,6 +1,7 @@
 package com.sudal.memo.user.service;
 
 import com.sudal.memo.common.MD5HashingEncoder;
+import com.sudal.memo.user.domain.User;
 import com.sudal.memo.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,14 @@ public class UserService {
         }else{
             return false;
         }
+    }
+
+    //
+    public User getUser(String loginId, String password){
+
+        String encodedpassword = MD5HashingEncoder.encode(password);
+
+        return userRepository.selectUset(loginId,encodedpassword);
     }
 
 

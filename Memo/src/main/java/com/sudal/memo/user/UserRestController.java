@@ -1,10 +1,8 @@
 package com.sudal.memo.user;
 
+import com.sudal.memo.user.domain.User;
 import com.sudal.memo.user.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,4 +37,34 @@ public class UserRestController {
 
         return resultMap;
     };
+
+    // 로그인 API
+    @PostMapping("/login-process")
+    public Map<String, String> login(
+            @RequestParam String loginId
+            , @RequestParam String password
+    ){
+
+        User user = userService.getUser(loginId, password);
+
+        Map<String, String> resultMap = new HashMap<>();
+
+        if(user != null){
+            resultMap.put("result","success");
+        } else {
+            resultMap.put("result","fail");
+        }
+
+        return resultMap;
+    }
+
+
+
+
+
+
+
+
+
+
 }

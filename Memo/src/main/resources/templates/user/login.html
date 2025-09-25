@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+    <section layout:fragment="contents" class="contents d-flex justify-content-center">
+        <div class="user-box p-5 my-5 rounded-lg" >
+            <h2 class="text-center">로그인</h2>
+            <input type="text" class="form-control mt-3" placeholder="아이디" id="loginIDInput">
+            <input type="password" class="form-control mt-2" placeholder="비밀번호" id="passwordInput">
+            <button type="button" class="btn btn-secondary btn-block mt-3" id="loginBtn">로그인</button>
+            <div class="d-flex justify-content-center mt-4">
+                <a href="/user/join">회원가입</a>
+            </div>
+        </div>
+    </section>
+
+    <scrip layout:fragment="script">
+
+        $("#loginBtn").on("click",function(){
+            let loginId = $("#loginIDInput").val();
+            let password = $("#passwordInput").val();
+
+            if(loginId == ""){
+            alert("아이디를 입력하세요");
+            return;
+            }
+
+            if(password == ""){
+            alert("비밀번호를 입력하세요");
+            return;
+            }
+
+        $.ajax({
+        type:"post"
+        , url: "/user/login-process"
+        , data: {"loginId": loginId, "password":password}
+        , success : function(response){
+        if(response.result == "success"){
+            location.href = "/memo/list";
+        } else{
+            alert("아이디 비밀번호를 확인 하세요")
+            }
+        }
+        , error : function(){
+        alert("로그인 에러")
+            }
+        })
+
+
+        });
+
+    </scrip>
+
+
+</html>
