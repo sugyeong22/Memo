@@ -7,7 +7,7 @@
     <section layout:fragment="contents" class="contents d-flex justify-content-center">
         <div class="user-box p-5 my-5 rounded-lg" >
             <h2 class="text-center">로그인</h2>
-            <input type="text" class="form-control mt-3" placeholder="아이디" id="loginIDInput">
+            <input type="text" class="form-control mt-3" placeholder="아이디" id="loginIdInput">
             <input type="password" class="form-control mt-2" placeholder="비밀번호" id="passwordInput">
             <button type="button" class="btn btn-secondary btn-block mt-3" id="loginBtn">로그인</button>
             <div class="d-flex justify-content-center mt-4">
@@ -19,7 +19,7 @@
     <script layout:fragment="script">
 
         $("#loginBtn").on("click",function(){
-            let loginId = $("#loginIDInput").val();
+            let loginId = $("#loginIdInput").val();
             let password = $("#passwordInput").val();
 
             if(loginId == ""){
