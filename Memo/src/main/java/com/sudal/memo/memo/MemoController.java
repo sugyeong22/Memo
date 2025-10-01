@@ -38,4 +38,14 @@ public class MemoController {
     public String memoForm(){
         return "memo/write";
     }
+
+    @GetMapping("/detail")
+    public String memoDetail(
+            @RequestParam long id
+            , Model model){
+        Memo memo = memoService.getMemo(id);
+        model.addAttribute("memo",memo);
+
+        return "memo/detail";
+    }
 }

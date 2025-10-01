@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +27,14 @@ public class MemoRestConroller {
     public Map<String, String> writeMemo(
             @RequestParam String title
             , @RequestParam String contents
+            , @RequestParam(required = false) MultipartFile imageFile //비필수
             , HttpSession session
     ){
         long userId = (Long) session.getAttribute("userId");
 
         Map<String, String> resultMap = new HashMap<>();
 
-        if(memoService.createMemo(userId, title, contents)){
+        if(memoService.createMemo(userId, title, contents, imageFile)){
             resultMap.put("result", "success");
         } else{
             resultMap.put("result", "fail");
