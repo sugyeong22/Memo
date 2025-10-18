@@ -39,7 +39,9 @@ public class FileManager {
         String filePath = directoryPath + "/" + file.getOriginalFilename();
 
         try {
+            // 실제 파일 내용 다루는것임
             byte[] bytes = file.getBytes();
+            // 경로를 다루는 객체로 변환
             Path path = Paths.get(filePath);
             Files.write(path, bytes);
 
@@ -55,4 +57,39 @@ public class FileManager {
 
 
     }
+
+
+    public static boolean removeFile(String imagePath){
+
+        if(imagePath == null){
+            return false;
+        }
+
+        String fullFilePath =  FILE_UPLOAD_PATH + imagePath.replace("/images","");
+
+        Path path = Paths.get(fullFilePath);
+
+        Path directoryPath = path.getParent();
+
+        try {
+            Files.delete(path);
+            Files.delete(directoryPath);
+        } catch (IOException e) {
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

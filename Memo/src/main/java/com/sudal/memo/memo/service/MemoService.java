@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +55,52 @@ public class MemoService {
         Optional<Memo> optionalMemo = memoRepositoy.findById(id);
             return optionalMemo.get();
         }
+
+    public boolean updateMemo(long id, String title, String contents){
+        // 수정대상 객체 얻어오기
+        Optional<Memo> optionalMemo =memoRepositoy.findById(id);
+
+        if(optionalMemo.isPresent()){
+
+            Memo memo = optionalMemo.get();
+
+            memo = memo.toBuilder()
+                    .title(title)
+                    .contents(contents)
+                    .build();
+
+            try {
+                memoRepositoy.save(memo);
+            } catch (DataAccessException e){
+                return false;
+            }
+
+        }else{
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+    public boolean deleteMemo(long id){
+
+        Optional<Memo> optionalMemo = memoRepositoy.findById(id);
+
+        if(optionalMemo.isPresent()){
+            Memo memo = optionalMemo.get();
+
+            FileManager.removeFile(memo.getImagePath());
+
+            memoRepositoy.delete(memo);
+        }else{
+            return false;
+        }
+
+        return true;
+
+    }
 
 
 

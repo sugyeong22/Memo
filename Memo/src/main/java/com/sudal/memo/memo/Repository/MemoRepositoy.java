@@ -16,4 +16,6 @@ public interface MemoRepositoy extends JpaRepository<Memo, Long> {
     public List<Memo> findByUserId(long userId, Sort sort);
 
 
+
+
 }
